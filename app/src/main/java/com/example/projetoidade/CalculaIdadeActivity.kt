@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.Period
@@ -70,7 +71,8 @@ class CalculaIdadeActivity : AppCompatActivity() {
     fun acaoCalcular(view: View){
         if( !validaNome() ){
             inputNome.requestFocus();
-            txtResultado.setText("ERRO: Preencha o seu nome!")
+            txtResultado.setText("Resultado:")
+            Toast.makeText(applicationContext, "ERRO: Preencha o nome!", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -78,11 +80,15 @@ class CalculaIdadeActivity : AppCompatActivity() {
             var periodo = calcularIdade()
             txtResultado.setText("Resultado:\nA idade do " + inputNome.text.toString() + " é: " + periodo.years + " anos, " + periodo.months + " meses e " + periodo.days + " dias.")
         }else{
-            txtResultado.setText("ERRO: Data inválida")
+            txtResultado.setText("Resultado:")
+            inputData.requestFocus();
+            Toast.makeText(applicationContext, "ERRO: Data Inválida!", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun acaoSair(view: View){
         finish()
     }
+
+
 }
