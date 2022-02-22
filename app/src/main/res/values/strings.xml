@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Qual sua idade?</string>
+    <string name="app_title">MINHA IDADE</string>
+    <string name="app_version">Versão 1.0</string>
+
+    <string name="splash_image_description">Imagem de Entrada</string>
+
+    <string name="txt_titulo_nome">Qual o seu nome?</string>
+    <string name="input_hint_nome">Digite seu primeiro nome</string>
+    <string name="txt_nascimento">Em que dia você nasceu?</string>
+    <string name="input_hint_nascimento">Data no formato dd/mm/yyyy</string>
+    <string name="btn_calcular">Calcular</string>
+    <string name="txt_resultado">Resultado:</string>
+    <string name="btn_sair">Sair</string>
+</resources>
