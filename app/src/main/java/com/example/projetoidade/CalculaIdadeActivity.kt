@@ -2,10 +2,12 @@ package com.example.projetoidade
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -38,14 +40,24 @@ class CalculaIdadeActivity : AppCompatActivity() {
         try{
             var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
             dataNascimento = LocalDate.parse(inputData.text.toString(), formatter)
-        }catch(e: DateTimeParseException){
+            var dataAtual = LocalDate.now()
+
+            if( dataNascimento.isEqual(dataAtual) || dataNascimento.isAfter(dataAtual) )
+                throw DateTimeException("Nascimento é maior que data atual")
+
+        }catch(e: Exception){
+            Log.e("REGRADENEGOCIO", e.message.toString())
             return false
         }
         return true
     }
 
     fun validaNome() : Boolean{
-        if( inputNome.text.toString() == "" ) return false
+        if( inputNome.text.isEmpty() ) {
+            Log.e("REGRADENEGOCIO", "Nome não está preenchido")
+            return false
+        }
+
         return true
     }
 
@@ -56,11 +68,17 @@ class CalculaIdadeActivity : AppCompatActivity() {
     }
 
     fun acaoCalcular(view: View){
-        if( validaData() || validaNome() ){
+        if( !validaNome() ){
+            inputNome.requestFocus();
+            txtResultado.setText("ERRO: Preencha o seu nome!")
+            return
+        }
+
+        if( validaData() ){
             var periodo = calcularIdade()
             txtResultado.setText("Resultado:\nA idade do " + inputNome.text.toString() + " é: " + periodo.years + " anos, " + periodo.months + " meses e " + periodo.days + " dias.")
         }else{
-            txtResultado.setText("ERRO: Preencha todos os dados")
+            txtResultado.setText("ERRO: Data inválida")
         }
     }
 
