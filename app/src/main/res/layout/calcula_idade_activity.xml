@@ -27,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:text="@string/txt_titulo_nome"
+        android:textColor="?android:attr/colorActivatedHighlight"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/inputNome"
         app:layout_constraintStart_toStartOf="@+id/inputNome"
         app:layout_constraintTop_toBottomOf="@+id/appTitulo" />
@@ -52,6 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:text="@string/txt_nascimento"
+        android:textColor="?android:attr/colorActivatedHighlight"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/inputData"
         app:layout_constraintStart_toStartOf="@+id/inputData"
         app:layout_constraintTop_toBottomOf="@+id/inputNome" />
