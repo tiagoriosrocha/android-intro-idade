@@ -1,4 +1,4 @@
-package com.example.projetoidade
+package com.example.projetoidade.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,11 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.projetoidade.R
 import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 
 class CalculaIdadeActivity : AppCompatActivity() {
 
