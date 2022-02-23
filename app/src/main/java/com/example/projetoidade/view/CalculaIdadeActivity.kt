@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.projetoidade.R
+import com.example.projetoidade.model.Pessoa
 import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.Period
@@ -21,7 +22,6 @@ class CalculaIdadeActivity : AppCompatActivity() {
     lateinit var btnCalcular: Button
     lateinit var txtResultado: TextView
     lateinit var btnSair: Button
-    lateinit var dataNascimento: LocalDate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,39 +37,13 @@ class CalculaIdadeActivity : AppCompatActivity() {
         txtResultado = findViewById(R.id.txtResultado)
     }
 
-    fun validaData() : Boolean{
-        try{
-            var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            dataNascimento = LocalDate.parse(inputData.text.toString(), formatter)
-            var dataAtual = LocalDate.now()
-
-            if( dataNascimento.isEqual(dataAtual) || dataNascimento.isAfter(dataAtual) )
-                throw DateTimeException("Nascimento é maior que data atual")
-
-        }catch(e: Exception){
-            Log.e("REGRADENEGOCIO", e.message.toString())
-            return false
-        }
-        return true
-    }
-
-    fun validaNome() : Boolean{
-        if( inputNome.text.isEmpty() ) {
-            Log.e("REGRADENEGOCIO", "Nome não está preenchido")
-            return false
-        }
-
-        return true
-    }
-
-    fun calcularIdade(): Period{
-        var dataAtual = LocalDate.now()
-        var periodo = Period.between(dataNascimento, dataAtual)
-        return periodo
-    }
-
     fun acaoCalcular(view: View){
-        if( !validaNome() ){
+
+        var nome = inputNome.text.toString()
+        var nascimento = inputData.text.toString()
+        var pessoa : Pessoa
+
+        if( nome.isEmpty()){
             inputNome.setError("Campo Obrigatório!")
             inputNome.requestFocus();
             txtResultado.setText("Resultado:")
@@ -77,15 +51,17 @@ class CalculaIdadeActivity : AppCompatActivity() {
             return
         }
 
-        if( validaData() ){
-            var periodo = calcularIdade()
-            txtResultado.setText("Resultado:\nA idade do " + inputNome.text.toString() + " é: " + periodo.years + " anos, " + periodo.months + " meses e " + periodo.days + " dias.")
-        }else{
+        if( !Pessoa.validaData(nascimento) ){
             txtResultado.setText("Resultado:")
             inputData.requestFocus();
             inputData.setError("Campo Inválido!")
             Toast.makeText(applicationContext, "ERRO: Data Inválida!", Toast.LENGTH_SHORT).show()
+            return
         }
+
+        pessoa = Pessoa(nome, nascimento)
+        var idade = pessoa.periodo
+        txtResultado.setText("Resultado:\nA idade do " + inputNome.text.toString() + " é: " + idade.years + " anos, " + idade.months + " meses e " + idade.days + " dias.")
     }
 
     fun acaoSair(view: View){

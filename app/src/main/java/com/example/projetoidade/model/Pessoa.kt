@@ -7,31 +7,31 @@ import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 
-class Pessoa {
+class Pessoa(var txtNome : String, var txtNascimento : String) {
 
     lateinit var nome: String
     lateinit var dataNascimento: LocalDate
     lateinit var periodo: Period
 
-    fun Pessoa(nome: String, nascimento: String){
-        if( !validaNome(nome) ){
+    init{
+        if( !validaNome(txtNome) ){
             Log.e("REGRADENEGOCIO", "Nome inválido")
-            throw Exception("Nome da pessoa inválido")
+            throw IllegalArgumentException("Nome da pessoa inválido")
         }else{
-            this.nome = nome
+            this.nome = txtNome
         }
 
-        if( !validaData(nascimento) ){
+        if( !validaData(txtNascimento) ){
             Log.e("REGRADENEGOCIO", "Data Inválida")
-            throw Exception("Data de nascimento inválida")
+            throw IllegalArgumentException("Data de nascimento inválida")
         }else{
-            this.periodo = calcularIdade(nascimento)
+            this.dataNascimento = parseDataNascimento(txtNascimento)
+            this.periodo = calcularIdade(txtNascimento)
         }
     }
 
-    private fun calcularIdade(nascimento: String): Period {
-        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        var dataNascimento = LocalDate.parse(nascimento, formatter)
+    private fun calcularIdade(txtNascimento: String): Period {
+        var dataNascimento = parseDataNascimento(txtNascimento)
         var dataAtual = LocalDate.now()
         return Period.between(dataNascimento, dataAtual)
     }
@@ -45,19 +45,34 @@ class Pessoa {
         return true
     }
 
-    private fun validaData(nascimento: String) : Boolean{
-        try{
-            var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            var dataNascimento = LocalDate.parse(nascimento, formatter)
-            var dataAtual = LocalDate.now()
+    companion object{
+        fun validaData(txtNascimento: String) : Boolean{
+            try{
+                var dataNascimento = parseDataNascimento(txtNascimento)
+                var dataAtual = LocalDate.now()
 
-            if( dataNascimento.isEqual(dataAtual) || dataNascimento.isAfter(dataAtual) )
-                throw DateTimeException("Nascimento é maior que data atual")
+                if( dataNascimento.isEqual(dataAtual) || dataNascimento.isAfter(dataAtual) )
+                    throw DateTimeException("Nascimento é maior que data atual")
 
-        }catch(e: Exception){
-            Log.e("REGRADENEGOCIO", e.message.toString())
-            return false
+            }catch(e: Exception){
+                Log.e("REGRADENEGOCIO", e.message.toString())
+                return false
+            }
+            return true
         }
-        return true
+
+        fun parseDataNascimento(txtNascimento: String) : LocalDate{
+            var dtNascimento = LocalDate.now()
+            try{
+                var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                dtNascimento = LocalDate.parse(txtNascimento, formatter)
+            }catch(e: Exception){
+                Log.e("REGRADENEGOCIO", e.message.toString())
+            }
+
+            return dtNascimento
+        }
     }
+
+
 }
