@@ -70,6 +70,7 @@ class CalculaIdadeActivity : AppCompatActivity() {
 
     fun acaoCalcular(view: View){
         if( !validaNome() ){
+            inputNome.setError("Campo Obrigatório!")
             inputNome.requestFocus();
             txtResultado.setText("Resultado:")
             Toast.makeText(applicationContext, "ERRO: Preencha o nome!", Toast.LENGTH_SHORT).show()
@@ -82,6 +83,7 @@ class CalculaIdadeActivity : AppCompatActivity() {
         }else{
             txtResultado.setText("Resultado:")
             inputData.requestFocus();
+            inputData.setError("Campo Inválido!")
             Toast.makeText(applicationContext, "ERRO: Data Inválida!", Toast.LENGTH_SHORT).show()
         }
     }
