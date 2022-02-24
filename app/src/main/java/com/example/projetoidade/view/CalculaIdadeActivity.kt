@@ -1,5 +1,6 @@
 package com.example.projetoidade.view
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,26 @@ class CalculaIdadeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calcula_idade_activity)
         inicializaComponentes()
+    }
+
+    override fun onPause(){
+        super.onPause()
+        val prefs = getSharedPreferences("app_idade", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString("txtNome",inputNome.text.toString())
+        editor.putString("txtNascimento", inputData.text.toString())
+        editor.apply()
+        Log.i("INFORMACAO","Salvando os dados da interface")
+    }
+
+    override fun onResume(){
+        super.onResume()
+        val prefs = getSharedPreferences("app_idade", Context.MODE_PRIVATE)
+        var nome = prefs.getString("txtNome","")
+        var nasc = prefs.getString("txtNascimento", "")
+        inputNome.setText(nome)
+        inputData.setText(nasc)
+        Log.i("INFORMACAO","Recuperando os dados da interface")
     }
 
     private fun inicializaComponentes() {
