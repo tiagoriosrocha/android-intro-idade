@@ -95,5 +95,9 @@ class CalculaIdadeActivity : AppCompatActivity() {
         finish()
     }
 
+    fun acaoExibirHistorico(view: View){
+
+    }
+
 
 }
