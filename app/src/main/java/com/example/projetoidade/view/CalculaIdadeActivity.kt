@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.projetoidade.R
+import com.example.projetoidade.controller.PessoaController
 import com.example.projetoidade.model.Pessoa
 import java.time.DateTimeException
 import java.time.LocalDate
@@ -80,9 +81,14 @@ class CalculaIdadeActivity : AppCompatActivity() {
             return
         }
 
-        pessoa = Pessoa(nome, nascimento)
+        var dtNascimento : LocalDate = Pessoa.parseDataNascimento(nascimento)
+        pessoa = Pessoa(nome, dtNascimento)
         var idade = pessoa.periodo
         txtResultado.setText("Resultado:\nA idade do " + inputNome.text.toString() + " é: " + idade.years + " anos, " + idade.months + " meses e " + idade.days + " dias.")
+
+        var pessoaController = PessoaController(this)
+        pessoaController.salvarRegistro(pessoa)
+        //pessoaController.buscarRegistros(this)
     }
 
     fun acaoSair(view: View){

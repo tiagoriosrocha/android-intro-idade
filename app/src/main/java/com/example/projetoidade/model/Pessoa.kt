@@ -7,33 +7,29 @@ import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 
-class Pessoa(var txtNome : String, var txtNascimento : String) {
+class Pessoa(var txtNome : String, var dtNascimento : LocalDate) {
 
+    var id: Int? = null
     lateinit var nome: String
     lateinit var dataNascimento: LocalDate
     lateinit var periodo: Period
+    lateinit var dataConsulta : LocalDate
 
     init{
-        if( !validaNome(txtNome) ){
-            Log.e("REGRADENEGOCIO", "Nome inválido")
-            throw IllegalArgumentException("Nome da pessoa inválido")
-        }else{
-            this.nome = txtNome
-        }
-
-        if( !validaData(txtNascimento) ){
-            Log.e("REGRADENEGOCIO", "Data Inválida")
-            throw IllegalArgumentException("Data de nascimento inválida")
-        }else{
-            this.dataNascimento = parseDataNascimento(txtNascimento)
-            this.periodo = calcularIdade(txtNascimento)
-        }
+        this.nome = txtNome
+        this.dataNascimento = dtNascimento
+        this.dataConsulta = LocalDate.now()
+        this.periodo = this.calcularIdade(dtNascimento, this.dataConsulta)
     }
 
-    private fun calcularIdade(txtNascimento: String): Period {
-        var dataNascimento = parseDataNascimento(txtNascimento)
-        var dataAtual = LocalDate.now()
-        return Period.between(dataNascimento, dataAtual)
+    constructor(txtNome : String, dtNascimento : LocalDate, codigo : Int, dtConsulta : LocalDate) : this(txtNome, dtNascimento){
+        this.id = codigo
+        this.dataConsulta = dtConsulta
+        this.periodo = this.calcularIdade(dtNascimento, dtConsulta)
+    }
+
+    private fun calcularIdade(dtNascimento: LocalDate, dtConsulta: LocalDate): Period {
+        return Period.between(dtNascimento, dtConsulta)
     }
 
     private fun validaNome(nome: String) : Boolean{
@@ -43,6 +39,10 @@ class Pessoa(var txtNome : String, var txtNascimento : String) {
         }
 
         return true
+    }
+
+    override fun toString(): String {
+        return "Pessoa(id='$id', nome='$nome', dataNascimento=$dataNascimento, periodo=${periodo.years} anos)"
     }
 
     companion object{
@@ -73,6 +73,8 @@ class Pessoa(var txtNome : String, var txtNascimento : String) {
             return dtNascimento
         }
     }
+
+
 
 
 }
