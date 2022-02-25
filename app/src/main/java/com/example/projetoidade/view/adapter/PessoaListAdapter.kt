@@ -1,4 +1,4 @@
-package com.example.projetoidade.view
+package com.example.projetoidade.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

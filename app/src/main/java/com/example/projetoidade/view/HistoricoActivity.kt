@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projetoidade.R
 import com.example.projetoidade.controller.PessoaController
 import com.example.projetoidade.model.Pessoa
+import com.example.projetoidade.view.adapter.PessoaListAdapter
 
 class HistoricoActivity : AppCompatActivity() {
 
