@@ -31,12 +31,13 @@ class PessoaController(var context : Context){
         return true
     }
 
-    fun buscarRegistros(contexto: Context){
+    fun buscarRegistros(contexto: Context) : ArrayList<Pessoa>{
         var listaPessoa: ArrayList<Pessoa> = this.banco.getPessoas()
 
         for(pessoa in listaPessoa){
             Log.i("INFORMACAO", pessoa.toString())
         }
+        return listaPessoa
     }
 
 }
