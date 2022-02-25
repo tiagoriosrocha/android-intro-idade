@@ -23,7 +23,7 @@ class HistoricoActivity : AppCompatActivity() {
     fun inicializaComponentes(){
         listaItems = findViewById(R.id.lista)
         var pessoaController = PessoaController(this)
-        var listaPessoas : ArrayList<Pessoa> = pessoaController.buscarRegistros(this)
+        var listaPessoas : ArrayList<Pessoa> = pessoaController.buscarRegistros()
         listaItems.adapter = PessoaListAdapter(listaPessoas,this)
     }
 

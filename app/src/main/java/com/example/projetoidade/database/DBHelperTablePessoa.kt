@@ -16,8 +16,6 @@ class DBHelperTablePessoa(context: Context, factory: SQLiteDatabase.CursorFactor
 
     // below is the method for creating a database by a sqlite query
     override fun onCreate(db: SQLiteDatabase) {
-        // below is a sqlite query, where column names
-        // along with their data types is given
         val query = ("CREATE TABLE tb_pessoa (" +
                 "pessoa_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome TEXT," +
@@ -25,13 +23,10 @@ class DBHelperTablePessoa(context: Context, factory: SQLiteDatabase.CursorFactor
                 "idade_atual TEXT," +
                 "data_consulta TEXT)")
 
-        // we are calling sqlite
-        // method for executing our query
         db.execSQL(query)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
-        // this method is to check if table already exists
         db.execSQL("DROP TABLE IF EXISTS tb_pessoa")
         onCreate(db)
     }
@@ -50,22 +45,12 @@ class DBHelperTablePessoa(context: Context, factory: SQLiteDatabase.CursorFactor
         values.put("idade_atual", idadeAtual)
         values.put("data_consulta", dataConsulta)
 
-        // here we are creating a
-        // writable variable of
-        // our database as we want to
         // insert value in our database
         val db = this.writableDatabase
-
-        // all values are inserted into database
         db.insert("tb_pessoa", null, values)
-
-        // at last we are
-        // closing our database
         db.close()
     }
 
-    // below method is to get
-    // all data from our database
     fun getPessoas() : ArrayList<Pessoa>{
         var listaPessoa = ArrayList<Pessoa>()
         val db = this.readableDatabase

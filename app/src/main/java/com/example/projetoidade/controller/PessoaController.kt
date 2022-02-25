@@ -31,7 +31,7 @@ class PessoaController(var context : Context){
         return true
     }
 
-    fun buscarRegistros(contexto: Context) : ArrayList<Pessoa>{
+    fun buscarRegistros() : ArrayList<Pessoa>{
         var listaPessoa: ArrayList<Pessoa> = this.banco.getPessoas()
 
         for(pessoa in listaPessoa){
