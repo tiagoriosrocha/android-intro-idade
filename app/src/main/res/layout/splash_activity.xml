@@ -21,7 +21,7 @@
             android:layout_height="162dp"
             android:text="@string/app_title"
             android:textAlignment="center"
-            android:textColor="#FF5722"
+            android:textColor="@color/purple_700"
             android:textSize="34sp"
             android:textStyle="bold" />
 
