@@ -12,4 +12,6 @@
     <string name="btn_calcular">Calcular</string>
     <string name="txt_resultado">Resultado:</string>
     <string name="btn_sair">Sair</string>
+    <string name="historico_consultas_title">HISTÓRICO DE CONSULTAS</string>
+    <string name="voltar">Voltar</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.projetoidade.view
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -96,7 +97,9 @@ class CalculaIdadeActivity : AppCompatActivity() {
     }
 
     fun acaoExibirHistorico(view: View){
-
+        val intent = Intent(this, HistoricoActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 
