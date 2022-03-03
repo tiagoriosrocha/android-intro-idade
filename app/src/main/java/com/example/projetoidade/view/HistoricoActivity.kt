@@ -15,6 +15,7 @@ import com.example.projetoidade.view.adapter.PessoaListAdapter
 class HistoricoActivity : AppCompatActivity() {
 
     lateinit var listaItems : RecyclerView
+    lateinit var pessoaListAdapter : PessoaListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,33 +23,34 @@ class HistoricoActivity : AppCompatActivity() {
 
         inicializaComponentes()
 
-//        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
-//            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-//                listaItems.adapter
-//            }
-//
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                val fromPos = viewHolder.adapterPosition
-//                val toPos = target.adapterPosition
-//                // move item in `fromPos` to `toPos` in adapter.
-//                return true // true if moved, false otherwise
-//            }
-//        }
-//
-//        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
-//        itemTouchHelper.attachToRecyclerView(listaItems)
+        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                pessoaListAdapter.removeAt(viewHolder.adapterPosition)
+            }
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPos = viewHolder.adapterPosition
+                val toPos = target.adapterPosition
+                // move item in `fromPos` to `toPos` in adapter.
+                return true // true if moved, false otherwise
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(listaItems)
     }
 
     fun inicializaComponentes(){
         listaItems = findViewById(R.id.lista)
         var pessoaController = PessoaController(this)
         var listaPessoas : ArrayList<Pessoa> = pessoaController.buscarRegistros()
-        listaItems.adapter = PessoaListAdapter(listaPessoas,this)
+        pessoaListAdapter = PessoaListAdapter(listaPessoas,this)
+        listaItems.adapter = pessoaListAdapter
     }
 
     fun acaoVoltar(view: View){

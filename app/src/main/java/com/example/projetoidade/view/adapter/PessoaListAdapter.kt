@@ -11,7 +11,7 @@ import com.example.projetoidade.R
 import com.example.projetoidade.model.Pessoa
 import java.time.format.DateTimeFormatter
 
-class PessoaListAdapter(private val listaPessoas: List<Pessoa>,
+class PessoaListAdapter(private val listaPessoas: ArrayList<Pessoa>,
                         private val context: Context) : Adapter<PessoaListAdapter.ViewHolder>() {
 
 
@@ -25,6 +25,11 @@ class PessoaListAdapter(private val listaPessoas: List<Pessoa>,
         holder?.let {
             it.bindView(pessoa)
         }
+    }
+
+    public fun removeAt(position: Int){
+        listaPessoas.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun getItemCount(): Int {
