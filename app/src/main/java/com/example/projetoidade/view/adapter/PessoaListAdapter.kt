@@ -16,7 +16,7 @@ class PessoaListAdapter(private val listaPessoas: List<Pessoa>,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.pessoa_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.pessoa_item_v2, parent, false)
         return ViewHolder(view)
     }
 
@@ -38,9 +38,9 @@ class PessoaListAdapter(private val listaPessoas: List<Pessoa>,
         lateinit var idade : TextView
 
         init {
-            nome = itemView.findViewById(R.id.nome_item)
-            nascimento = itemView.findViewById(R.id.nascimento_item)
-            idade = itemView.findViewById(R.id.idade_item)
+            nome = itemView.findViewById(R.id.nome_item_v2)
+            nascimento = itemView.findViewById(R.id.nascimento_item_v2)
+            idade = itemView.findViewById(R.id.idade_item_v2)
         }
 
         fun bindView(pessoa: Pessoa) {

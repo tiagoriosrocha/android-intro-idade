@@ -1,14 +1,16 @@
 package com.example.projetoidade.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projetoidade.R
 import com.example.projetoidade.controller.PessoaController
 import com.example.projetoidade.model.Pessoa
 import com.example.projetoidade.view.adapter.PessoaListAdapter
+
 
 class HistoricoActivity : AppCompatActivity() {
 
@@ -19,6 +21,27 @@ class HistoricoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_historico)
 
         inicializaComponentes()
+
+//        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+//            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+//                listaItems.adapter
+//            }
+//
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                val fromPos = viewHolder.adapterPosition
+//                val toPos = target.adapterPosition
+//                // move item in `fromPos` to `toPos` in adapter.
+//                return true // true if moved, false otherwise
+//            }
+//        }
+//
+//        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+//        itemTouchHelper.attachToRecyclerView(listaItems)
     }
 
     fun inicializaComponentes(){
